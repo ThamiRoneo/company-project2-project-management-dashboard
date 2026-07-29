@@ -1,4 +1,4 @@
-import type { Project } from "../types/index.ts";
+import type { Project } from "../types";
 
 // showing different color based on the status of the project
 
