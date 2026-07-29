@@ -1,4 +1,4 @@
-import { type TeamMember } from "../types";
+import type { TeamMember } from "../types";
 
 export const mockTeamMembers: TeamMember[] = [
   {
