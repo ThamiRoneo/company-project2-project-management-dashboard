@@ -1,7 +1,5 @@
 import type { Project } from "../types/index.ts";
 
-
-
 // showing different color based on the status of the project
 
 //  Record<Project["status"], string>  is a TypeScript syntax meaning "an object whose keys must be exactly the values of Project["status"], and whose values are strings." It forces you to handle every possible status
@@ -15,6 +13,7 @@ export function getStatusColor (status: Project["status"]): string {
     return colors[status];
 }
 
+// changing Projectstatus on index.ts labels from small to capital letters thats how it will render on the UI
 export function getStatusLabel(status: Project["status"]): string {
     const labels: Record<Project["status"], string> = {
         active: "Active",
