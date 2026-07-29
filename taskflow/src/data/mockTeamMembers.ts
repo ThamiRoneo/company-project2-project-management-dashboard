@@ -2,39 +2,33 @@ import type { TeamMember } from "../types";
 
 export const mockTeamMembers: TeamMember[] = [
   {
-    id: "tm-1",
-    name: "Alice Mokoena",
-    avatar: "AM",
-    role: "Frontend Developer",
-  },
-  {
-    id: "tm-2",
-    name: "Bob van der Merwe",
-    avatar: "BV",
+    id: "user-1",
+    name: "Lerato",
+    avatar: "LT",
     role: "Backend Developer",
   },
   {
-    id: "tm-3",
-    name: "Catherine Nkosi",
-    avatar: "CN",
-    role: "UI/UX Designer",
+    id: "user-2",
+    name: "Thami",
+    avatar: "TS",
+    role: "Full Stack Developer",
   },
   {
-    id: "tm-4",
-    name: "David Botha",
-    avatar: "DB",
+    id: "user-3",
+    name: "Gareth",
+    avatar: "GM",
+    role: "Frontend Developer",
+  },
+  {
+    id: "user-4",
+    name: "Lesedi",
+    avatar: "LM",
     role: "Project Manager",
   },
-  {
-    id: "tm-5",
-    name: "Elena Petrova",
-    avatar: "EP",
-    role: "QA Engineer",
-  },
-  {
-    id: "tm-6",
-    name: "Thabo Molefe",
-    avatar: "TM",
-    role: "Full-Stack Developer",
-  },
+{
+    id: "user-5",
+    name: "Galaletsang",
+    avatar: "GM",
+    role: "Frontend Developer",
+  }
 ];
