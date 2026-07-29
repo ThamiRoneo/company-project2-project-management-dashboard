@@ -1,142 +1,99 @@
-import { useEffect, useState } from "react";
-import StatCard from "../components/ui/StatCard";
-import type { Project } from "../types";
-// Temporary — swap for useContext once Person #4 delivers it
-// import { mockProjects } from "../data/mockProjects";
+import { useProjectContext } from "../hooks/useProjectContext";
+import { useProjects } from "../hooks/useProjects";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
+import ErrorMessage from "../components/ui/ErrorMessage";
+import EmptyState from "../components/ui/EmptyState";
+import StatGrid from "../components/dashboard/StatGrid";
+import ProjectProgress from "../components/dashboard/ProjectProgress";
+import UpcomingDeadlines from "../components/dashboard/UpcomingDeadlines";
 
 export default function Dashboard() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { projects, loading, error, retry } = useProjectContext();
+  const stats = useProjects(projects);
 
-  useEffect(() => {
-    // Simulate fetch — Person #5 will replace with the real data layer
-    const timer = setTimeout(() => {
-      setProjects(mockProjects);
-      setLoading(false);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, []);
+  // ── Loading state ──
+  if (loading) {
+    return <LoadingSpinner message="Loading dashboard..." size="lg" />;
+  }
 
-  if (loading)
-    return <div className="p-8 text-gray-400">Loading dashboard...</div>;
+  // ── Error state ──
+  if (error) {
+    return <ErrorMessage message={error} onRetry={retry} fullPage />;
+  }
 
-  const allTasks = projects.flatMap((p) => p.tasks);
-  const now = new Date();
+  // ── Empty state ──
+  if (projects.length === 0) {
+    return (
+      <EmptyState
+        title="No projects yet"
+        message="Create a project to get started with your dashboard."
+        icon="📊"
+      />
+    );
+  }
 
-  const stats = [
+  // ── Stat card definitions ──
+  const statCards = [
     {
       title: "Total Projects",
-      value: projects.length,
+      value: stats.totalProjects,
       icon: "📁",
-      color: "bg-blue-500",
+      color: "bg-primary",
     },
     {
       title: "Active Projects",
-      value: projects.filter((p) => p.status === "active").length,
+      value: stats.activeProjects,
       icon: "🚀",
-      color: "bg-green-500",
+      color: "bg-in-progress",
     },
     {
       title: "Completed Projects",
-      value: projects.filter((p) => p.status === "completed").length,
+      value: stats.completedProjects,
       icon: "✅",
-      color: "bg-purple-500",
+      color: "bg-completed",
     },
     {
       title: "Total Tasks",
-      value: allTasks.length,
+      value: stats.totalTasks,
       icon: "📋",
-      color: "bg-indigo-500",
+      color: "bg-primary-light",
     },
     {
       title: "Completed Tasks",
-      value: allTasks.filter((t) => t.status === "completed").length,
+      value: stats.completedTasks,
       icon: "🎯",
-      color: "bg-teal-500",
+      color: "bg-secondary",
     },
     {
       title: "Overdue Tasks",
-      value: allTasks.filter(
-        (t) => new Date(t.dueDate) < now && t.status !== "completed",
-      ).length,
+      value: stats.overdueTasks,
       icon: "⚠️",
-      color: "bg-red-500",
+      color: "bg-danger",
     },
   ];
 
-  // Upcoming deadlines — next 5 soonest
-  const upcoming = [...projects]
-    .filter((p) => new Date(p.endDate) >= now)
-    .sort(
-      (a, b) => new Date(a.endDate).getTime() - new Date(b.endDate).getTime(),
-    )
-    .slice(0, 5);
-
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Dashboard</h1>
-
-      {/* Stat Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-        {stats.map((s) => (
-          <StatCard key={s.title} {...s} />
-        ))}
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-2xl font-bold text-text uppercase tracking-tight">
+            Dashboard
+          </h1>
+          <p className="text-sm text-text-muted mt-1">
+            Overview of all projects and tasks
+          </p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Upcoming Deadlines */}
-        <div className="bg-white rounded-xl shadow-sm p-6">
-          <h2 className="text-lg font-semibold mb-4">Upcoming Deadlines</h2>
-          {upcoming.length === 0 ? (
-            <p className="text-gray-400">No upcoming deadlines.</p>
-          ) : (
-            <ul className="space-y-3">
-              {upcoming.map((p) => {
-                const days = Math.ceil(
-                  (new Date(p.endDate).getTime() - now.getTime()) / 86400000,
-                );
-                return (
-                  <li key={p.id} className="flex justify-between items-center">
-                    <span className="font-medium text-gray-800">{p.name}</span>
-                    <span
-                      className={`text-sm font-semibold ${days <= 3 ? "text-red-500" : "text-gray-500"}`}
-                    >
-                      {days}d left
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </div>
+      {/* Stat Cards */}
+      <div className="mb-8">
+        <StatGrid stats={statCards} />
+      </div>
 
-        {/* Project Progress */}
-        <div className="bg-white rounded-xl shadow-sm p-6">
-          <h2 className="text-lg font-semibold mb-4">Project Progress</h2>
-          <ul className="space-y-4">
-            {projects.map((p) => {
-              const total = p.tasks.length;
-              const done = p.tasks.filter(
-                (t) => t.status === "completed",
-              ).length;
-              const pct = total > 0 ? Math.round((done / total) * 100) : 0;
-              return (
-                <li key={p.id}>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span className="font-medium text-gray-700">{p.name}</span>
-                    <span className="text-gray-500">{pct}%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2.5">
-                    <div
-                      className="bg-blue-500 h-2.5 rounded-full transition-all"
-                      style={{ width: `${pct}%` }}
-                    />
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+      {/* Bottom row: deadlines + progress */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <UpcomingDeadlines deadlines={stats.upcomingDeadlines} />
+        <ProjectProgress projects={projects} />
       </div>
     </div>
   );
