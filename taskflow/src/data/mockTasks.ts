@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import type { Task } from "../types";
 import { mockTeamMembers } from "./mockTeamMembers";
 
@@ -61,5 +60,3 @@ export const mockTasks: Task[] = [
     createdAt: "2026-07-15T00:00:00Z",
   },
 ];
-=======
->>>>>>> parent of 17983dc (feat: add mock data for tasks and team members, implement custom hooks for local storage and project context, enhance dashboard and project pages with loading and error handling, and improve task filtering functionality)

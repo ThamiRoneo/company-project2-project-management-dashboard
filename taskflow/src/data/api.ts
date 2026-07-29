@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import type { Project, Task, TaskStatus, TeamMember } from "../types";
 import { mockProjects } from "./mockProjects";
 
@@ -62,5 +61,3 @@ export async function createTask(input: {
   project.tasks.push(newTask);
   return newTask;
 }
-=======
->>>>>>> parent of 17983dc (feat: add mock data for tasks and team members, implement custom hooks for local storage and project context, enhance dashboard and project pages with loading and error handling, and improve task filtering functionality)
