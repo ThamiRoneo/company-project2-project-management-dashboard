@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import StatCard from "../components/ui/StatCard";
 import type { Project } from "../types";
 // Temporary — swap for useContext once Person #4 delivers it
-import { mockProjects } from "../data/mockProjects";
+// import { mockProjects } from "../data/mockProjects";
 
 export default function Dashboard() {
   const [projects, setProjects] = useState<Project[]>([]);
