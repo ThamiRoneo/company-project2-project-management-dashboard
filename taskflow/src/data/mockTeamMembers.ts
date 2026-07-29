@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import type { TeamMember } from "../types";
 
 export const mockTeamMembers: TeamMember[] = [
@@ -32,3 +33,5 @@ export const mockTeamMembers: TeamMember[] = [
     role: "Frontend Developer",
   }
 ];
+=======
+>>>>>>> parent of 17983dc (feat: add mock data for tasks and team members, implement custom hooks for local storage and project context, enhance dashboard and project pages with loading and error handling, and improve task filtering functionality)
