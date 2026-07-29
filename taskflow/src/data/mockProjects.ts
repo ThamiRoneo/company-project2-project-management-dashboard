@@ -1,6 +1,7 @@
 // Creating temporary mock data that will be replaced by Galaletsang's real data (this is just for me to keep on working instead of waiting for everyone)
-import type { Project } from "../types/index.ts";
+import type { Project, Activity } from "../types/index";
 
+// projects
 export const mockProjects: Project[] = [
     {
         id: "p1",
@@ -48,5 +49,23 @@ export const mockProjects: Project[] = [
         endDate: "2026-09-01",
         teamMembers: [{ id: "u3", name: "Thabo", avatar: "", role: "Backend" }],
         tasks: [],
+    },
+];
+
+
+// mock activity
+export const mockActivity: Activity[] = [
+    {
+        id: "a1",
+        projectId: "p1",
+        message: "Naledi updated the hero section",
+        timestamp: "2026-07-25T10:00:00Z"
+    },
+
+    {
+        id: "a2",
+        projectId: "p1",
+        message: "Sipho completed the footer redesign",
+        timestamp: "2026-07-20T14:30:00Z",
     },
 ];
