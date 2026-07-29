@@ -22,3 +22,34 @@ const statusLabels: Record<Project["status"], string> = {
   completed: "Completed",
   on_hold: "On Hold",
 };
+
+
+// the component
+export default function ProjectCard({ project, onClick }: ProjectCardProps) {
+  const progress = getProjectProgress(project);
+
+
+  return (
+
+    <div onClick={() => onClick?.(project.id)}>
+
+        <div className="flex justify-between items-start mb-2">
+            <h3 className="font-semibold text-lg text-gray-800">{project.name}</h3>
+
+            <span className={`text-xs px-2 py-1 rounded-full font-medium ${statusColors[project.status]}`}>
+                {statusLabels[project.status]}
+            </span>
+        </div>
+
+        <p>{project.description}</p>
+
+        <div>
+            <div className="bg-indigo-500 h-2 rounded-full" style={{ width: `${progress}%` }} />
+        </div>
+
+        <p>{progress}% complete</p>
+
+    </div>
+  );
+
+}
