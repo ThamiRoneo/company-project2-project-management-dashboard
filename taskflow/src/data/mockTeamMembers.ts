@@ -4,31 +4,31 @@ export const mockTeamMembers: TeamMember[] = [
   {
     id: "user-1",
     name: "Lerato",
-    avatar: "https://i.pravatar.cc/150?img=1",
+    avatar: "LT",
     role: "Backend Developer",
   },
   {
     id: "user-2",
     name: "Thami",
-    avatar: "https://i.pravatar.cc/150?img=2",
+    avatar: "TS",
     role: "Full Stack Developer",
   },
   {
     id: "user-3",
     name: "Gareth",
-    avatar: "https://i.pravatar.cc/150?img=3",
+    avatar: "GM",
     role: "Frontend Developer",
   },
   {
     id: "user-4",
     name: "Lesedi",
-    avatar: "https://i.pravatar.cc/150?img=4",
+    avatar: "LM",
     role: "Project Manager",
   },
 {
     id: "user-5",
     name: "Galaletsang",
-    avatar: "https://i.pravatar.cc/150?img=1",
+    avatar: "GM",
     role: "Frontend Developer",
   }
 ];
