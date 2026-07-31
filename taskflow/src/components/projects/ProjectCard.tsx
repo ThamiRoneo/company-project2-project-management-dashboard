@@ -46,3 +46,5 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
   );
 
 }
+
+// lesedi
