@@ -14,3 +14,4 @@ export function getProjectProgress(project: Project): number {
     // percentage calculation. Math.round will round off everything to a whole number
     return Math.round((completed / project.tasks.length) * 100);
 }
+// lesedi
