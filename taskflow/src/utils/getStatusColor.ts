@@ -22,3 +22,5 @@ export function getStatusLabel(status: Project["status"]): string {
     };
     return labels[status];
 }
+
+// lesedi
