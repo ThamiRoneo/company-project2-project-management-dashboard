@@ -1,5 +1,6 @@
 import type { Activity } from "../types";
 
+// my own temporary mock data, since no one else built activity data yet — projectId values match Person 5's real project ids
 export const mockActivity: Activity[] = [
   {
     id: "act-1",
