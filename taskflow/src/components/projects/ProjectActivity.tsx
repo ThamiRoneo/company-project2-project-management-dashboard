@@ -7,6 +7,7 @@ interface ProjectActivityProps {
 }
 
 export default function ProjectActivity({ project }: ProjectActivityProps) {
+  // activity isn't nested in Project, it's a separate array linked by projectId, so filter it down first
   const activity = mockActivity.filter((a) => a.projectId === project.id);
 
   return (
