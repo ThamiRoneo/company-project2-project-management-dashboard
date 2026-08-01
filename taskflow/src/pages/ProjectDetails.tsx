@@ -8,6 +8,7 @@ import ProjectTeam from "../components/projects/ProjectTeam";
 import ProjectActivity from "../components/projects/ProjectActivity";
 
 export default function ProjectDetails() {
+  // pulls the :id segment straight from the url
   const { id } = useParams<{ id: string }>();
 
   const [project, setProject] = useState<Project | null>(null);
@@ -17,6 +18,7 @@ export default function ProjectDetails() {
   useEffect(() => {
     setIsLoading(true);
     const timer = setTimeout(() => {
+      // find() returns undefined if the id doesn't match any project — that's how we catch bad urls
       const found = mockProjects.find((p) => p.id === id) ?? null;
       if (!found) {
         setError("Project not found.");
@@ -28,6 +30,7 @@ export default function ProjectDetails() {
     }, 500);
 
     return () => clearTimeout(timer);
+    // re-runs this search if the url changes to a different project id
   }, [id]);
 
   if (isLoading) {
@@ -55,7 +58,7 @@ export default function ProjectDetails() {
       <ProjectDeadlines project={project} />
       <ProjectTeam project={project} />
 
-      {/* Basic task list — Person 3 may replace this with a richer TaskList component */}
+      {/* basic task list for now — Person 3 may build a proper TaskList component to replace this */}
       <div className="border rounded-xl p-5 bg-white shadow-sm">
         <h2 className="font-semibold text-gray-700 mb-3">Tasks</h2>
         {project.tasks.length === 0 ? (
