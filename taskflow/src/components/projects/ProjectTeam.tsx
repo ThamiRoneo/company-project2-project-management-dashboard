@@ -12,9 +12,11 @@ export default function ProjectTeam({ project }: ProjectTeamProps) {
       {project.teamMembers.length === 0 ? (
         <p className="text-sm text-gray-400">No team members assigned.</p>
       ) : (
+        // teamMembers already holds full TeamMember objects from Person 5's data, no extra lookup needed
         <ul className="space-y-3">
           {project.teamMembers.map((member) => (
             <li key={member.id} className="flex items-center gap-3">
+              {/* avatar is just initials text (e.g. "LT"), not an image url */}
               <div className="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center text-xs font-semibold">
                 {member.avatar}
               </div>
