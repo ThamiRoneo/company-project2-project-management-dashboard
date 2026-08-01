@@ -1,5 +1,3 @@
-import type { ReactNode } from "react";
-
 interface StatCardProps {
   title: string;
   value: number;
