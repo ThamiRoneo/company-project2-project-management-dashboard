@@ -38,3 +38,4 @@ export interface Activity {
   message: string;
   timestamp: string;
 }
+
