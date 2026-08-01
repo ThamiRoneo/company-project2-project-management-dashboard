@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
 import { fetchProjects } from "../data/api";
-import LoadingSpinner from "../components/ui/LoadingSpinner";
-import ErrorMessage from "../components/ui/ErrorMessage";
-import EmptyState from "../components/ui/EmptyState";
 import StatGrid from "../components/dashboard/StatGrid";
 import UpcomingDeadlines from "../components/dashboard/UpcomingDeadlines";
 import ProjectProgress from "../components/dashboard/ProjectProgress";
@@ -28,9 +25,10 @@ export default function Dashboard() {
       });
   }, []);
 
-  if (loading) return <LoadingSpinner />;
-  if (error) return <ErrorMessage message={error} />;
-  if (projects.length === 0) return <EmptyState message="No projects to display." />;
+  // this will render once the ui component is fully implemented
+  //   if (loading) return <LoadingSpinner />;
+  //   if (error) return <ErrorMessage message={error} />;
+  //   if (projects.length === 0) return <EmptyState message="No projects to display." />;
 
   return (
     <div>
