@@ -5,6 +5,7 @@ interface ProjectDeadlinesProps {
   project: Project;
 }
 
+// project type only has startDate/endDate, no single "deadline" field, so showing both here
 export default function ProjectDeadlines({ project }: ProjectDeadlinesProps) {
   return (
     <div className="border rounded-xl p-5 bg-white shadow-sm">
@@ -22,4 +23,5 @@ export default function ProjectDeadlines({ project }: ProjectDeadlinesProps) {
     </div>
   );
 }
+
 // lesedi
