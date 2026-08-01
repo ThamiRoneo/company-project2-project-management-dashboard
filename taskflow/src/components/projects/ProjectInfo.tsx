@@ -1,4 +1,3 @@
-
 import type { Project } from "../../types";
 import { getStatusColor, getStatusLabel } from "../../utils/getStatusColor";
 import { getProjectProgress } from "../../utils/projectProgress";
@@ -7,6 +6,7 @@ interface ProjectInfoProps {
   project: Project;
 }
 
+// same status + progress logic as ProjectCard, just displayed bigger since this is the full detail view
 export default function ProjectInfo({ project }: ProjectInfoProps) {
   const progress = getProjectProgress(project);
 
