@@ -8,7 +8,6 @@ export default function UpcomingDeadlines() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setLoading(true);
     fetchProjects()
       .then((data) => {
         setProjects(data);
