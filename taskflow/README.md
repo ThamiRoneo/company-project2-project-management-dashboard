@@ -1,79 +1,75 @@
-# TaskFlow
+# React + TypeScript + Vite
 
-A project management dashboard for tracking projects, tasks, and team worklow.
-TaskFlow lets teams manage multiple projects, track task status across a Kanban-style workflow (To Do → In Progress → In Review → Completed), monitor team workload, and keep an eye on upcoming deadlines all in one dashboard.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Features
+Currently, two official plugins are available:
 
-- **Dashboard** — at-a-glance stats (total tasks, in progress, in review, completed), a filterable task table, project progress bars, team workload breakdown, and upcoming deadlines
-- **Projects** — searchable, filterable list of all projects with status, description, and completion progress
-- **Project details** — drill into a single project's info, team, deadlines, and activity
-- **Tasks** — view, create, and update tasks with status and priority tracking
-- **Persistent state** — project and task data persists across page refreshes via localStorage
-- **Responsive layout** — sidebar navigation on desktop, bottom nav on mobile
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## Tech Stack
+## React Compiler
 
-- **React** + **TypeScript**
-- **Vite** — build tool and dev server
-- **Tailwind CSS** — styling
-- **React Router** — client-side routing
-- Mock async API layer (simulates real network requests with artificial delay)
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Getting Started
+## Expanding the ESLint configuration
 
-### Prerequisites
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-- [Node.js](https://nodejs.org/) (v18 or later recommended)
-- npm
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-### Installation
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-```bash
-git clone https://github.com/ThamiRoneo/company-project2-project-management-dashboard.git
-cd company-project2-project-management-dashboard/taskflow
-npm install
-```
-
-### Running the dev server
-
-```bash
-npm run dev
-```
-
-Then open the local URL shown in the terminal (typically `http://localhost:5173`).
-
-## Project Structure
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 
 ```
-src/
-├── components/
-│   ├── dashboard/     # Dashboard-specific components (StatGrid, MyTasksTable, TeamWorkload, etc.)
-│   ├── layout/         # App shell — Sidebar, MobileNav, Layout
-│   ├── projects/       # Project list, cards, filters, search
-│   ├── tasks/          # Task-related components
-│   └── ui/              # Shared/reusable UI (badges, states, cards)
-├── context/            # ProjectContext — global project/task state
-├── data/                # Mock data + simulated API functions
-├── hooks/               # Custom hooks (useProjectContext, useLocalStorage, useTaskFilters, useProjects)
-├── pages/               # Route-level pages (Home, Dashboard, Projects, ProjectDetails, TaskDetails)
-├── types/                # Shared TypeScript types
-├── utils/                # Helper functions (date formatting, status colors)
-├── App.tsx              # Routes + ProjectProvider
-└── main.tsx              # App entry point
+
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+
 ```
-
-## Team & Roles
-
-
-Thami Sithole | Project setup, routing, global layout, dashboard shell
-
-Lesedi Modikwe | Projects list, search/filter, project detail page 
-
-Lerato Thungo | Task list, creation, detail, status workflow 
-
-Gareth Motloutsi | Context API, custom hooks, localStorage persistence
-
-Galaletsang Modise | Mock data/API layer, shared UI states, lazy loading, responsive polish, deployment 
-
-
