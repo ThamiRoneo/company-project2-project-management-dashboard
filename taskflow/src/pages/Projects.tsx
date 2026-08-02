@@ -5,6 +5,7 @@ import { fetchProjects } from "../data/api";
 import ProjectCard from "../components/projects/ProjectCard";
 import ProjectSearchBar from "../components/projects/ProjectSearchBar";
 import ProjectStatusFilter from "../components/projects/ProjectStatusFilter";
+import useTaskFilters from "../hooks/useTaskFilters";
 
 // "all" isn't a real ProjectStatus, it's just for the dropdown's default option
 type FilterOption = "all" | ProjectStatus;
@@ -15,9 +16,6 @@ export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const [statusFilter, setStatusFilter] = useState<FilterOption>("all");
 
   useEffect(() => {
     setIsLoading(true);
@@ -35,16 +33,7 @@ export default function Projects() {
       });
   }, []);
 
-  const filteredProjects = projects.filter((project) => {
-    const matchesSearch = project.name
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-
-    const matchesStatus =
-      statusFilter === "all" || project.status === statusFilter;
-
-    return matchesSearch && matchesStatus;
-  });
+  const { filteredProjects, ...filterProps } = useTaskFilters(projects);
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
@@ -52,12 +41,12 @@ export default function Projects() {
 
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <ProjectSearchBar
-          value={searchTerm}
-          onChange={setSearchTerm}
+          value={filterProps.searchTerm}
+          onChange={filterProps.setSearchTerm}
         />
         <ProjectStatusFilter
-          value={statusFilter}
-          onChange={setStatusFilter}
+          value={filterProps.statusFilter}
+          onChange={filterProps.setStatusFilter}
         />
       </div>
 
