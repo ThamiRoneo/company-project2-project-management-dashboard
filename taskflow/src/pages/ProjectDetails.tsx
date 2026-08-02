@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import type { Project } from "../types";
 import { mockProjects } from "../data/mockProjects";
 import ProjectInfo from "../components/projects/ProjectInfo";
 import ProjectDeadlines from "../components/projects/ProjectDeadlines";
 import ProjectTeam from "../components/projects/ProjectTeam";
 import ProjectActivity from "../components/projects/ProjectActivity";
+import TaskList from "../components/tasks/TaskList";
 
 export default function ProjectDetails() {
   // pulls the :id segment straight from the url
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
   const [project, setProject] = useState<Project | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -58,27 +60,10 @@ export default function ProjectDetails() {
       <ProjectDeadlines project={project} />
       <ProjectTeam project={project} />
 
-      {/* basic task list for now — Person 3 may build a proper TaskList component to replace this */}
-      <div className="border rounded-xl p-5 bg-white shadow-sm">
-        <h2 className="font-semibold text-gray-700 mb-3">Tasks</h2>
-        {project.tasks.length === 0 ? (
-          <p className="text-sm text-gray-400">No tasks yet.</p>
-        ) : (
-          <ul className="space-y-2">
-            {project.tasks.map((task) => (
-              <li
-                key={task.id}
-                className="flex justify-between items-center text-sm border-b last:border-0 pb-2 last:pb-0"
-              >
-                <span className="text-gray-700">{task.title}</span>
-                <span className="text-xs text-gray-400 capitalize">
-                  {task.status.replace("_", " ")}
-                </span>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <TaskList
+        tasks={project.tasks}
+        onTaskClick={(id) => navigate(`/tasks/${id}`)}
+      />
 
       <ProjectActivity project={project} />
     </div>

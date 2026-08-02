@@ -8,6 +8,7 @@ const Home = lazy(() => import("./pages/Home"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Projects = lazy(() => import("./pages/Projects"));
 const ProjectDetails = lazy(() => import("./pages/ProjectDetails"));
+const TaskDetails = lazy(() => import("./pages/TaskDetails"));
 
 // TODO: swap for <LoadingSpinner /> once components/ui/LoadingSpinner.tsx lands.
 function PageFallback() {
@@ -29,6 +30,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/:id" element={<ProjectDetails />} />
+            <Route path="/tasks/:id" element={<TaskDetails />} />
           </Route>
         </Routes>
       </Suspense>
