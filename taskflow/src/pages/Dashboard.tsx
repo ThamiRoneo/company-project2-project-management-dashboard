@@ -1,34 +1,22 @@
-import { useState, useEffect } from "react";
-import { fetchProjects } from "../data/api";
+import { useContext } from "react";
 import StatGrid from "../components/dashboard/StatGrid";
 import UpcomingDeadlines from "../components/dashboard/UpcomingDeadlines";
 import ProjectProgress from "../components/dashboard/ProjectProgress";
-import type { Project } from "../types";
+import { ProjectCtx } from "../context/ProjectContext";
 
 export default function Dashboard() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const context = useContext(ProjectCtx);
 
-  useEffect(() => {
-    setLoading(true);
-    fetchProjects()
-      .then((data) => {
-        setProjects(data);
-        setError(null);
-      })
-      .catch(() => {
-        setError("Failed to load dashboard data.");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+  if (!context) {
+    throw new Error("ProjectContext not found");
+  }
+
+  const { projects, loading, error } = context;
 
   // this will render once the ui component is fully implemented
-  //   if (loading) return <LoadingSpinner />;
-  //   if (error) return <ErrorMessage message={error} />;
-  //   if (projects.length === 0) return <EmptyState message="No projects to display." />;
+  // if (loading) return <LoadingSpinner />;
+  // if (error) return <ErrorMessage message={error} />;
+  // if (projects.length === 0) return <EmptyState message="No projects to display." />;
 
   return (
     <div>
