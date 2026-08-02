@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import type { Project, ProjectStatus } from "../types";
+import type { Project } from "../types";
 import { fetchProjects } from "../data/api";
 import ProjectCard from "../components/projects/ProjectCard";
 import ProjectSearchBar from "../components/projects/ProjectSearchBar";
 import ProjectStatusFilter from "../components/projects/ProjectStatusFilter";
 import useTaskFilters from "../hooks/useTaskFilters";
 
-// "all" isn't a real ProjectStatus, it's just for the dropdown's default option
-type FilterOption = "all" | ProjectStatus;
 
 export default function Projects() {
   const navigate = useNavigate();
@@ -18,8 +16,6 @@ export default function Projects() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setIsLoading(true);
-
     fetchProjects()
       .then((data) => {
         setProjects(data);

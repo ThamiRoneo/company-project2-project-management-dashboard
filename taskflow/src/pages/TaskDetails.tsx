@@ -15,7 +15,6 @@ export default function TaskDetails() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
     fetchProjects()
       .then((projects) => {
         const foundProject = projects.find((p) =>
