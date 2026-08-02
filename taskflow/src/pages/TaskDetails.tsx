@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { fetchProjects, updateTask } from "../../data/api";
-import type { Task, Project } from "../../types";
-import TaskStatusSelect from "../tasks/TaskStatusSelect";
-import TaskPrioritySelect from "../tasks/TaskPrioritySelect";
+import { fetchProjects, updateTask } from "../data/api";
+import type { Task, Project } from "../types";
+import TaskStatusSelect from "../components/tasks/TaskStatusSelect";
+import TaskPrioritySelect from "../components/tasks/TaskPrioritySelect";
 
 export default function TaskDetails() {
   const { id } = useParams<{ id: string }>();

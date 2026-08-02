@@ -11,6 +11,7 @@ import TaskList from "../components/tasks/TaskList";
 export default function ProjectDetails() {
   // pulls the :id segment straight from the url
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
   const [project, setProject] = useState<Project | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);

@@ -11,7 +11,7 @@ export default function Dashboard() {
     throw new Error("ProjectContext not found");
   }
 
-  const { projects, loading, error } = context;
+  const { projects } = context;
 
   // this will render once the ui component is fully implemented
   // if (loading) return <LoadingSpinner />;
